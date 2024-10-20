@@ -1,12 +1,14 @@
 package main.java;
 
 import java.util.Scanner;
-import java.util.ArrayList;
+
+import main.java.datastructures.Queue;
+import main.java.players.HumanPlayer;
 
 /** The main class that runs the game. */
 public class App {
     public static void main(String[] args) {
-        ArrayList<String> players = new ArrayList<>();
+        Queue<HumanPlayer> players = new Queue<>();
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
@@ -18,10 +20,12 @@ public class App {
         System.out.println("Enter the names of the players: ");
         for (int i = 0; i < numPlayers; i++) {
             String name = scanner.nextLine();
-            players.add(name);
+            players.enqueue(new HumanPlayer(name));
         }
         System.out.println();
 
-        System.out.println(players);
+        Game<HumanPlayer> game = new Game<>(players);
+
+        game.playRound();
     }
 }
